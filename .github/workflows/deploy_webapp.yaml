@@ -33,6 +33,7 @@ jobs:
       env:
         GOOGLE_PROJECT: ${{ secrets.GCP_PROJECT_ID }}
       run: |
-        gcloud container clusters get-credentials ${{ secrets.GKE_CLUSTER_NAME }} --region ${{ secrets.GCP_REGION }}
-        sed -i "s|<IMAGE_PLACEHOLDER>|us-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/gcp-devops-repo-01/web-app-test:latest|g" resources.yaml
+        gcloud container clusters get-credentials gke-auto-gcp-devops-project-01-prod --region us-west1
+        sed -i "s/GCP_PROJECT_ID/$GCP_PROJECT_ID/g" resources.yaml
         kubectl apply -f resources.yaml
+# sed -i "s|<IMAGE_PLACEHOLDER>|us-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/gcp-devops-repo-01/web-app-test:latest|g" resources.yaml
