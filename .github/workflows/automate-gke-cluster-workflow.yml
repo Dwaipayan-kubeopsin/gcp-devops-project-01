@@ -22,6 +22,7 @@ jobs:
 
     env:
       GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
+      GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
       PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
       REGION: ${{ secrets.GCP_REGION }}
       CLUSTER_NAME: ${{ secrets.GKE_CLUSTER_NAME }}
@@ -33,10 +34,13 @@ jobs:
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v1
         with:
-          terraform_version: 1.0.0  # Adjust to desired version
+          terraform_version: 1.3.5  # Adjust to desired version
 
       - name: Configure Google Cloud credentials
         uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_CREDENTIALS }}
 
       - name: Authenticate gcloud
         uses: google-github-actions/auth@v2
@@ -49,6 +53,7 @@ jobs:
       - name: Debug Credentials
         run: |
           echo "GOOGLE_APPLICATION_CREDENTIALS: $GOOGLE_APPLICATION_CREDENTIALS"
+          echo "GOOGLE_CREDENTIALS: $GOOGLE_CREDENTIALS"
           gcloud auth list
 
       - name: Apply Terraform Changes
