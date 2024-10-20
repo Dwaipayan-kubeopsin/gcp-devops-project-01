@@ -1,2 +1,2 @@
 # Ignore Terraform directory
-.terraform/
+gke-iac-terraform/.terraform/
