@@ -4,7 +4,7 @@ variable "project_id" {
 }
 variable "cluster_name" {
   description = "The name for the GKE cluster"
-  default     = "gke-gcp-devops-project-01"
+  default     = "gke-auto-gcp-devops-project-01"
 }
 variable "env_name" {
   description = "The environment for the GKE cluster"
