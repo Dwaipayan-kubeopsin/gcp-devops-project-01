@@ -34,6 +34,6 @@ jobs:
         GOOGLE_PROJECT: ${{ secrets.GCP_PROJECT_ID }}
       run: |
         gcloud container clusters get-credentials gke-auto-gcp-devops-project-01-prod --region us-west1
-        sed -i "s/GCP_PROJECT_ID/$GCP_PROJECT_ID/g" resources.yaml
+        sed -i "s|image: .*|image: us-west1-docker.pkg.dev/gcp-devops-project-01/gcp-devops-repo-01/web-app-test:latest|" resources.yaml
         kubectl apply -f resources.yaml
 # sed -i "s|<IMAGE_PLACEHOLDER>|us-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/gcp-devops-repo-01/web-app-test:latest|g" resources.yaml
