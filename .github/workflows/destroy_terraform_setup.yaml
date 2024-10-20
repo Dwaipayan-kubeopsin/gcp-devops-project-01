@@ -40,6 +40,10 @@ jobs:
         with:
           credentials_json: ${{ secrets.GCP_CREDENTIALS }}
 
+          
+      - name: Initialize Terraform
+        run: terraform init
+
       - name: Debug Credentials
         run: |
           echo "GOOGLE_APPLICATION_CREDENTIALS: $GOOGLE_APPLICATION_CREDENTIALS"
