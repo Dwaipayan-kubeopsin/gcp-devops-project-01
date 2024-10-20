@@ -25,20 +25,22 @@ The agenda of this project is to divide the required tasks in 3 parts
 - Create an account in GCP
 - Identify the **project_id**, **Region** details etc.
 - Create a *Service Account* and keep the JSON key string for further use
-- Assign the following **IAM Roles** to the *Service Account* for performing the required tasks for this project. *Note in Production environment Roles are propagated to groupds rather than individuals to adhere to Authentication and Authorization policies*
+- Assign the following **IAM Roles** to the *Service Account* for performing the required tasks for this project. *Note in Production environment Roles are propagated to groups rather than individuals to adhere to Authentication and Authorization policies*
+  
   ![alt text](image-1.png)
+  
 - Add the following APIs for underlying infrastructure provisioning, networking & monitoring
   - Compute Engine API
   - Kubernetes Engine API
   - Cloud Resource Manager API
   - Cloud Logging API
-- Provision a GCS storage bucket for storing the terraform.tfstate files as backend service which will main the consistency of the initialized terraform states. This will also add a layer of security for the underlying platform and infrastructure
+- Provision a GCS storage bucket for storing the terraform.tfstate files as backend service which will maintain the consistency of the initialized terraform states. This will also add a layer of security for the underlying platform and infrastructure
 - Create a Google Artifact Registory separately and access the registory only with service account tokens to ensure securtity
 
 #### Setup Github:
 
 - Create the required repo
-- Add the required reporsitory secrets to ensure the workdflows are triggered and executed with no crucial cloud data leak
+- Add the required reporsitory secrets to ensure the workflows are triggered and executed with no crucial cloud data leak
 
 
 #### Implement the pipeline to deploy a GKE cluster: 
