@@ -10,10 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-    - name: code checkout
+    - name: Code Checkout
       uses: actions/checkout@v2
 
-    - name: Install the gcloud cli
+    - name: Install the gcloud CLI
       uses: google-github-actions/setup-gcloud@v1
       with:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
@@ -21,18 +21,18 @@ jobs:
         install_components: 'gke-gcloud-auth-plugin'
         export_default_credentials: true
 
-    - name: Build and push the Docker image
+    - name: Build and Push the Docker Image
       env:
         GOOGLE_PROJECT: ${{ secrets.GCP_PROJECT_ID }}
       run: |
         gcloud auth configure-docker us-west1-docker.pkg.dev
-        docker build -t us-west1-docker.pkg.dev/$GCP_PROJECT_ID/gcp-devops-repo-01/web-app-test:0.1.0 .
-        docker push us-west1-docker.pkg.dev/$GCP_PROJECT_ID/gcp-devops-repo-01/web-app-test:0.1.0
+        docker build -t us-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/gcp-devops-repo-01/web-app-test:latest .
+        docker push us-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/gcp-devops-repo-01/web-app-test:latest
 
     - name: Deploy to GKE
       env:
         GOOGLE_PROJECT: ${{ secrets.GCP_PROJECT_ID }}
       run: |
-        gcloud container clusters get-credentials autopilot-cluster-1 --region us-west1
-        sed -i "s/$GCP_PROJECT_ID/$GCP_PROJECT_ID/g" resources.yaml
+        gcloud container clusters get-credentials ${{ secrets.GKE_CLUSTER_NAME }} --region ${{ secrets.GCP_REGION }}
+        sed -i "s|<IMAGE_PLACEHOLDER>|us-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/gcp-devops-repo-01/web-app-test:0.1.0|g" resources.yaml
         kubectl apply -f resources.yaml
