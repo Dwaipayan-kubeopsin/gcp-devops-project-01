@@ -25,8 +25,6 @@ jobs:
       env:
         GOOGLE_PROJECT: ${{ secrets.GCP_PROJECT_ID }}
       run: |
-        echo ${{ secrets.GCP_CREDENTIALS }} > ${HOME}/gcloud-key.json
-        gcloud auth activate-service-account --key-file=${HOME}/gcloud-key.json
         gcloud auth configure-docker us-west1-docker.pkg.dev 
         docker build -t us-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/gcp-devops-repo-01/web-app-test:latest .
         docker push us-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/gcp-devops-repo-01/web-app-test:latest
