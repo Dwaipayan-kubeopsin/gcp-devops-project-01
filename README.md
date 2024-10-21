@@ -8,7 +8,7 @@ The agenda of this project is to divide the required tasks in 3 parts
 
 2. Deploy the instrasture with Github Action Workflows as an end to end CICD pipeline
 
-3. Deploy the web application with Workflows as well and ensure the app is accisible from internet
+3. Deploy the web application with Workflows as well and ensure the app is reachable from internet
 
 
 #### Local Environment Setup Prerequisites:
